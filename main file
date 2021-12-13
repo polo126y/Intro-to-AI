@@ -1,8 +1,11 @@
 import random
 import numpy as np
-class Agent:
+
+class Gon:
     def __init__(self):
-        self.monster=[['A' for i in range(50)] for j in range(50)]
+        self.animal=[['A' for i in range(50)] for j in range(50)]
+        self.hunter=[['A' for i in range(50)] for j in range(50)]
+        self.cave=[['A' for i in range(50)] for j in range(50)]
         self.kb=[['A' for i in range(50)] for j in range(50)]
         self.moves=[]
         self.move=1
@@ -13,8 +16,6 @@ class Agent:
         self.prev=[]
         self.f=False
         self.exp_t=False
-        self.shoot=""
-        self.arrow_fired=False
         self.visited=[]
         self.a=False
         self.right_border=False
@@ -25,22 +26,9 @@ class Agent:
 
     def get_action(self):
         actions = ['MOVE_UP', 'MOVE_DOWN', 'MOVE_LEFT', 'MOVE_RIGHT']
-        extras = ['SHOOT_UP', 'SHOOT_DOWN', 'SHOOT_LEFT', 'SHOOT_RIGHT']
         self.counter+=1
         if self.counter>999:
             return "QUIT"
-        if self.shoot in extras and self.arrow_fired==False:
-            if self.move_p==actions[0]:
-                self.last_move=actions[1]
-            if self.move_p==actions[1]:
-                self.last_move=actions[0]
-            if self.move_p==actions[2]:
-                self.last_move=actions[3]
-            if self.move_p==actions[3]:
-                self.last_move=actions[2]
-            self.step_back=True
-            self.arrow_fired=True
-            return self.shoot
 
         if self.step_back==True:
             self.step_back=False
@@ -137,17 +125,20 @@ class Agent:
 
     def give_senses(self, location, breeze, stench):
         actions = ['MOVE_UP', 'MOVE_DOWN', 'MOVE_LEFT', 'MOVE_RIGHT']
-        extras = ['SHOOT_UP', 'SHOOT_DOWN', 'SHOOT_LEFT', 'SHOOT_RIGHT']
         x=location[0]
         y=location[1]
-        if stench==True:
-            self.wump[x][y]='s'
-        if breeze==True:
+        if growl==True:
             self.kb[x][y]='b'
-            self.locate_pit(location)
+            self.animal
+        if footprint==True:
+            self.kb[x][y]='b'
+            self.cave
+        if nen==True:
+            self.kb[x][y]='b'
+            self.hunter
         if breeze==False and stench==False:
             self.kb[x][y]='o'
-            self.wump[x][y]='o'            
+                       
         if self.prev==location:
             self.border=True
         else:
