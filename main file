@@ -3,10 +3,9 @@ import numpy as np
 
 class Gon:
     def __init__(self):
-        self.animal=[['A' for i in range(50)] for j in range(50)]
         self.hunter=[['A' for i in range(50)] for j in range(50)]
         self.cave=[['A' for i in range(50)] for j in range(50)]
-        self.kb=[['A' for i in range(50)] for j in range(50)]
+        self.monster=[['A' for i in range(50)] for j in range(50)]
         self.moves=[]
         self.move=1
         self.tb=False
@@ -23,13 +22,19 @@ class Gon:
         self.last_move='null'
         self.step_back=False
         self.counter=0
-        
-    def choose('BFS', 'DFS'):
-        print('Choose BFS or DFS: ')
 
     def get_action(self):
         actions = ['MOVE_UP', 'MOVE_DOWN', 'MOVE_LEFT', 'MOVE_RIGHT']
-        
+            if self.move_p==actions[0]:
+                self.last_move=actions[1]
+            if self.move_p==actions[1]:
+                self.last_move=actions[0]
+            if self.move_p==actions[2]:
+                self.last_move=actions[3]
+            if self.move_p==actions[3]:
+                self.last_move=actions[2]
+            self.step_back=True
+
         if self.step_back==True:
             self.step_back=False
             return self.last_move
@@ -125,19 +130,17 @@ class Gon:
 
     def give_senses(self, location, breeze, stench):
         actions = ['MOVE_UP', 'MOVE_DOWN', 'MOVE_LEFT', 'MOVE_RIGHT']
+        extras = ['SHOOT_UP', 'SHOOT_DOWN', 'SHOOT_LEFT', 'SHOOT_RIGHT']
         x=location[0]
         y=location[1]
-        if growl==True:
+        if stench==True:
+            self.wump[x][y]='s'
+        if breeze==True:
             self.kb[x][y]='b'
-            self.animal
-        if footprint==True:
-            self.kb[x][y]='b'
-            self.cave
-        if nen==True:
-            self.kb[x][y]='b'
-            self.hunter
-        if growl==False and footprint==False and nen==False:
-            self.kb[x][y]='o'                      
+            self.locate_pit(location)
+        if breeze==False and stench==False:
+            self.kb[x][y]='o'
+            self.wump[x][y]='o'            
         if self.prev==location:
             self.border=True
         else:
@@ -153,6 +156,51 @@ class Gon:
             self.shoot=c
         #input()
         #print (np.matrix(self.kb[-1::-1]))
+
+    def killed_wumpus(self):
+        c=(0,0)
+        v=(0,0)
+        x=0
+        y=0
+        l=[]
+        l=self.prev
+        for i,lst in enumerate(self.wump):
+            for j,k in enumerate(lst):
+                if k == "s":
+                     c=(i, j)
+
+        if c:
+            x,y=c
+
+            if self.wump[x+2][y]=='s':
+                self.wump[x+1][y]='w'
+            if self.wump[x-2][y]=='s':
+                self.wump[x-1][y]='w'
+            if self.wump[x+1][y+1]=='s':
+                self.wump[x+1][y]='w'
+            if self.wump[x+1][y-1]=='s':
+                self.wump[x+1][y]='w'
+            if self.wump[x-1][y+1]=='s':
+                self.wump[x][y+1]='w'
+            if self.wump[x-1][y-1]=='s':
+                self.wump[x][y-1]='w'
+
+        extras = ['SHOOT_UP', 'SHOOT_DOWN', 'SHOOT_LEFT', 'SHOOT_RIGHT']
+        for i,lst in enumerate(self.wump):
+            for j,k in enumerate(lst):
+                if k == "w":
+                     v=(i, j)
+
+        if l[0]==v[0]:
+            if l[1]>v[1]:
+                return (extras[1])
+            else:
+                return (extras[0])
+        if l[1]==v[1]:
+            if l[0]>v[0]:
+                return (extras[2])
+            else:
+                return (extras[3])
 
 
     def locate_pit(self,location):
