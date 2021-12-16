@@ -113,7 +113,7 @@ class Gon:
         self.f=False
         actions = ['MOVE_UP', 'MOVE_DOWN', 'MOVE_LEFT', 'MOVE_RIGHT']
         temp=[]
-        t=self.check_pit(self.prev)
+        t=self.check_cave(self.prev)
         if isinstance(t,int):
             if actions[t] in self.unsafe:
                 if len(self.unsafe)!=1:
@@ -203,7 +203,7 @@ class Gon:
                 return (extras[3])
 
 
-    def locate_pit(self,location):
+    def locate_cave(self,location):
 
 
         x=location[0]
@@ -226,7 +226,78 @@ class Gon:
             self.kb[x][y-1]='p'
 
 
-    def check_pit(self,l):
+    def check_cave(self,l):
+        x=l[0]
+        y=l[1]
+        if self.kb[x+1][y]=='p':
+            return 3
+        if self.kb[x-1][y]=='p':
+            return 2
+        if self.kb[x][y+1]=='p':
+            return 0
+        if self.kb[x][y-1]=='p':
+            return 1 
+
+    def locate_hunter(self,location):
+
+
+        x=location[0]
+        y=location[1]
+        if self.kb[x+2][y]=='b' and self.kb[x+1][y+1]=='b':
+            self.kb[x+1][y]='p'
+        if self.kb[x+2][y]=='b' and self.kb[x+1][y-1]=='b':
+            self.kb[x+1][y]='p'
+        if self.kb[x-2][y]=='b' and self.kb[x-1][y+1]=='b':
+            self.kb[x-1][y]='p'
+        if self.kb[x-2][y]=='b' and self.kb[x-1][y-1]=='b':
+            self.kb[x+1][y]='p'
+        if self.kb[x][y+2]=='b' and self.kb[x+1][y+1]=='b':
+            self.kb[x][y+1]='p'
+        if self.kb[x][y+2]=='b' and self.kb[x-1][y+1]=='b':
+            self.kb[x][y+1]='p'
+        if self.kb[x][y-2]=='b' and self.kb[x+1][y-1]=='b':
+            self.kb[x][y-1]='p'
+        if self.kb[x][y-2]=='b' and self.kb[x-1][y-1]=='b':
+            self.kb[x][y-1]='p'
+            
+    
+    def check_hunter(self,l):
+        x=l[0]
+        y=l[1]
+        if self.kb[x+1][y]=='p':
+            return 3
+        if self.kb[x-1][y]=='p':
+            return 2
+        if self.kb[x][y+1]=='p':
+            return 0
+        if self.kb[x][y-1]=='p':
+            return 1 
+            
+         
+    def locate_animal(self,location):
+
+
+        x=location[0]
+        y=location[1]
+        if self.kb[x+2][y]=='b' and self.kb[x+1][y+1]=='b':
+            self.kb[x+1][y]='p'
+        if self.kb[x+2][y]=='b' and self.kb[x+1][y-1]=='b':
+            self.kb[x+1][y]='p'
+        if self.kb[x-2][y]=='b' and self.kb[x-1][y+1]=='b':
+            self.kb[x-1][y]='p'
+        if self.kb[x-2][y]=='b' and self.kb[x-1][y-1]=='b':
+            self.kb[x+1][y]='p'
+        if self.kb[x][y+2]=='b' and self.kb[x+1][y+1]=='b':
+            self.kb[x][y+1]='p'
+        if self.kb[x][y+2]=='b' and self.kb[x-1][y+1]=='b':
+            self.kb[x][y+1]='p'
+        if self.kb[x][y-2]=='b' and self.kb[x+1][y-1]=='b':
+            self.kb[x][y-1]='p'
+        if self.kb[x][y-2]=='b' and self.kb[x-1][y-1]=='b':
+            self.kb[x][y-1]='p'
+    
+    
+    def check_animal(self,l):
         x=l[0]
         y=l[1]
         if self.kb[x+1][y]=='p':
