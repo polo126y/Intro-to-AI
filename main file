@@ -133,11 +133,11 @@ class Gon:
         x=location[0]
         y=location[1]
         if nen==True:
-            self.hunter[x][y]='s'
+            self.kb[x][y]='s'
             self.locate_hunter(location)
-        if ==True:
+        if growl==True:
             self.kb[x][y]='b'
-            self.locate_pit(location)
+            self.locate_animal(location)
         if breeze==False and stench==False:
             self.kb[x][y]='o'
             self.wump[x][y]='o'            
