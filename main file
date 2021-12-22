@@ -212,7 +212,7 @@ class Gon:
         if self.hunter[x][y-2]=='n' and self.hunter[x+1][y-1]=='n':
             self.hunter[x][y-1]='p'
         if self.hunter[x][y-2]=='n' and self.hunter[x-1][y-1]=='n':
-            self.kb[x][y-1]='p'
+            self.hunter[x][y-1]='p'
             
     
     def check_hunter(self,l):
