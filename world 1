@@ -1,0 +1,17 @@
+width = 6
+
+blocks = set()
+
+for x in range(width+1):
+    blocks.add((0, x))
+    blocks.add((x, 0))
+    blocks.add((width,x))
+    blocks.add((x, width))
+
+badge = {(5,1)}
+hunter = {(4,4)}
+cave = {(3,3)}
+animal = {(2,2)}
+initial_location = (1,1)
+
+world1 = (blocks = blocks, gold = gold, wumpus = wumpus_location, pits = pits, initial_location = initial_location)
